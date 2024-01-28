@@ -31,3 +31,8 @@ python app.py -c ./redismon.ini
 ### screenshot
 
 ![redismon](https://user-images.githubusercontent.com/439301/155867717-76d7f1a0-fadb-4e6b-8aad-75e551db46c5.png)
+
+## References
+
+This project uses [charsyam/redis](https://github.com/charsyam/redismon) as a starting point.
+Credits to [charsyam](https://github.com/charsyam) for the original work.
