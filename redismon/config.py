@@ -6,7 +6,6 @@ class Config:
         self.parser = ConfigParser(interpolation=ExtendedInterpolation())
         self.parser.read(path)
         self.config = self.build_config(self.parser)
-        
 
     def build_config(self, parser):
         config = {}

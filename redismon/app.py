@@ -26,8 +26,7 @@ POLLING_INTERVAL = 1
 PERIOD = 3600
 
 parser = OptionParser()
-parser.add_option("-a", "--addr", dest="addr", default="127.0.0.1",
-                  help="hostaddr")
+parser.add_option("-a", "--addr", dest="addr", default="127.0.0.1", help="hostaddr")
 parser.add_option("-c", "--config", dest="config", help="configfile")
 (options, args) = parser.parse_args()
 
@@ -79,13 +78,13 @@ poller = Poller.instance()
 
 
 def make_histories(values):
-    l = len(values)
+    len_of_vals = len(values)
     p0 = values[0]
     c = p0['total_commands_processed']
     tc = []
     labels = []
     rss = []
-    for i in range(1, l):
+    for i in range(1, len_of_vals):
         p = values[i]['total_commands_processed']
         label = datetime.datetime.fromtimestamp(values[i]['time']).strftime("%Y-%m-%d %H:%M:%S")
         rs = values[i]['used_memory_rss']/1024/1024/1024
@@ -153,15 +152,19 @@ def item_size(limit=1024768):
 
 def produce_graph_data(host):
     values = [json.loads(x) for x in store_mgr.get(host)]
-    if values == None or len(values) == 0:
+    if values is None or len(values) == 0:
         return None
-    
+
     last = values[-1]
     results = make_histories(values)
     explainer = RedisExplainer(values)
     results['explains'] = explainer.explain()
-    results['memory'] = {'rss': last['used_memory_rss_human'], 'used': last['used_memory_human'],
-                         'peak': last['used_memory_peak_human'], 'ratio': 0}
+    results['memory'] = {
+        'rss': last['used_memory_rss_human'],
+        'used': last['used_memory_human'],
+        'peak': last['used_memory_peak_human'],
+        'ratio': 0
+    }
 
     if "total_system_memory_human" in last:
         results['memory']['total'] = last["total_system_memory_human"]
@@ -177,7 +180,7 @@ def produce_graph_data(host):
 @app.route('/api/v1/info', methods=['GET'])
 def analysis():
     now = get_current_timestamp()
-    
+
     hosts = store_mgr.keys()
     r = {}
     for host in hosts:
@@ -187,12 +190,13 @@ def analysis():
 
     resp = Resp()
     resp['data'] = r
+    resp['time'] = now
     return resp
 
 
 @app.route('/api/v1/hello', methods=['GET'])
 def hello():
-    return redis_mgr.addr
+    return target_mgr.addr
 
 
 def get_local_ip():
