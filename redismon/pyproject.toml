@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "redismon"
+version = "0.1.0"
+description = "Redis monitoring tool"
+authors = ["YeonwooSung <neos960518@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.13"
+Flask = "^3.0.2"
+pymysql = "^1.1.0"
+nose = "^1.3.7"
+flake8 = "^7.0.0"
+Flask-Migrate = "^4.0.7"
+Flask-SQLAlchemy = "^3.1.1"
+pylint = "^3.1.0"
+scipy = "^1.12.0"
+Flask-Cors = "^4.0.0"
+apscheduler = "^3.10.4"
+redis = "^5.0.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
