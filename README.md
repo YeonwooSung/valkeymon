@@ -1,5 +1,5 @@
-# redismon
-Redis Monitoring Tool
+# valkeymon
+Valkey Monitoring Tool (also works with Redis)
 
 ## How to use redismon
 
