@@ -13,10 +13,10 @@ services:
       dockerfile: Dockerfile
     hostname: localhost
     environment:
-      MYSQL_ROOT_PASSWORD: redismon!@#
-      MYSQL_USER: redismon
-      MYSQL_PASSWORD: redismon!@#
-      MYSQL_DATABASE: redismon
+      MYSQL_ROOT_PASSWORD: valkeymon!@#
+      MYSQL_USER: valkeymon
+      MYSQL_PASSWORD: valkeymon!@#
+      MYSQL_DATABASE: valkeymon
     ports:
     - 3306:3306
     container_name: mysql-local
