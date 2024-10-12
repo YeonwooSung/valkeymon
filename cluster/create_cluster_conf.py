@@ -15,10 +15,10 @@ def read_sample(path):
 
 
 def create_conf(data, port, pid_path, path):
-    v1 = data.replace("{{port}}", str(port))
-    v2 = v1.replace("{{pid_path}}", pid_path)
+    data_with_port = data.replace("{{port}}", str(port))
+    data_fullconfig = data_with_port.replace("{{pid_path}}", pid_path)
     wf = open(path, "w")
-    wf.write(v2)
+    wf.write(data_fullconfig)
     wf.close()
     return True
 
@@ -31,7 +31,7 @@ if __name__ == "__main__":
         newname = f"{cwd}/{i}.conf"
         create_conf(data, i, PID_PATH, newname)
         servers.append(f"127.0.0.1:{i}")
-        print(f"redis-server {cwd}/{i}.conf")
-        
-    print("redis-cli --cluster create " + " ".join(servers))
-    print("redis-cli --cluster add-node {primary} {replica} --cluster-slave")
+        print(f"valkey-server {cwd}/{i}.conf")
+
+    print("valkey-cli --cluster create " + " ".join(servers))
+    print("valkey-cli --cluster add-node {primary} {replica} --cluster-slave")
