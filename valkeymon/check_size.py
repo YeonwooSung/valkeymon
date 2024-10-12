@@ -41,16 +41,15 @@ if __name__ == '__main__':
         limit = int(sys.argv[2])
 
     parts = addr.split(':')
-    REDIS_PORT = 6379
+    VALKEY_PORT = 6379
     if len(parts) >= 1:
-        REDIS_HOST = parts[0] 
+        VALKEY_HOST = parts[0] 
 
     if len(parts) >= 2:
-        REDIS_PORT = int(parts[1])
+        VALKEY_PORT = int(parts[1])
 
-    rconn = redis.StrictRedis(REDIS_HOST, REDIS_PORT)
+    rconn = redis.StrictRedis(VALKEY_HOST, VALKEY_PORT)
     all = get_all_items_size(rconn, limit)
 
     for elem in sorted(all.items(), reverse=True) :
         print(elem[0] , " ::" , elem[1] )
-

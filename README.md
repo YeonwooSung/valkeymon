@@ -3,10 +3,10 @@ Valkey Monitoring Tool (also works with Redis)
 
 ## How to use redismon
 
-* Run Redismon
+* Run Valkeymon
 
 ```
-python app.py -a {REDIS_HOST}:{REDIS_PORT}
+python app.py -a {VALKEY_HOST}:{VALKEY_PORT}
 ```
 
 or
@@ -23,9 +23,9 @@ host = 192.168.0.102
 port = 6379
 ```
 
-and Run Redismon
+and Run Valkeymon
 ```
-python app.py -c ./redismon.ini
+python app.py -c ./valkeymon.ini
 ```
 
 ### screenshot

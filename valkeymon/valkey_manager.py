@@ -1,5 +1,4 @@
 import redis
-import json
 
 
 def get_string_key_size(conn, key):
@@ -13,8 +12,8 @@ def get_set_key_size(conn, key):
 
 def dump(conn, key):
     data = conn.dump(key)
-    l = len(data) if data else 0
-    return l
+    return len(data) if data else 0
+
 
 def get_all_items_size(conn, limit):
     all = {}

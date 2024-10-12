@@ -2,8 +2,8 @@ import redis
 import sys
 
 
-REDIS_HOST = sys.argv[1]
-REDIS_PORT = sys.argv[2]
+VALKEY_HOST = sys.argv[1]
+VALKEY_PORT = sys.argv[2]
 
 underbound = 1024768
 
@@ -24,7 +24,7 @@ def dump(conn, key):
     return len(data) if data else 0
 
 
-rconn = redis.StrictRedis(REDIS_HOST, REDIS_PORT)
+rconn = redis.StrictRedis(VALKEY_HOST, VALKEY_PORT)
 
 store = {}
 for key in rconn.scan_iter(count=100):

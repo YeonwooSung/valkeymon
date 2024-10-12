@@ -4,18 +4,14 @@ from flask import Flask, jsonify, render_template
 from flask import request
 from flask_cors import CORS, cross_origin
 
-import time
 import json
 
-import os
-
-import atexit
 import datetime
 from optparse import OptionParser
 from config import Config
 
-from redis_manager import RedisManager
-from redis_explainer import RedisExplainer
+from valkey_manager import RedisManager
+from valkey_explainer import RedisExplainer
 from store import get_store_manager
 from poller import Poller
 from async_job import AsyncJob
@@ -59,17 +55,17 @@ def parse_info(info: dict):
     return info
 
 
-def get_redis_save_info(mgr):
+def get_valkey_save_info(mgr):
     return mgr.get_config("save")['save']
     
-def collect_redis_info(mgr):
+def collect_valkey_info(mgr):
     info = mgr.info()
     return parse_info(info)
 
 
 def sensor():
     host = target_mgr.get_host()
-    value = collect_redis_info(target_mgr)
+    value = collect_valkey_info(target_mgr)
     value["time"] = get_current_timestamp()
     store_mgr.append(host, json.dumps(value))
 
@@ -99,8 +95,8 @@ def make_histories(values):
 
 def check_size(queue, args):
     (limit) = args
-    redis_mgr = RedisManager(addr=options.addr)
-    all = redis_mgr.check_size(limit)
+    valkey_mgr = RedisManager(addr=options.addr)
+    all = valkey_mgr.check_size(limit)
     queue.put(all)
 
     
@@ -211,7 +207,7 @@ if __name__ == '__main__':
     port = 5000
 
     if not config:
-        g_server_addr = get_local_ip() + ":5000"
+        g_server_addr = get_local_ip() + f":{port}"
     else:
         app_config = config.get("app")
         POLLING_INTERVAL = int(app_config.get("interval"))

@@ -63,7 +63,7 @@ def parse_slave_node(host, port, parent, results):
         parse_slave_node(sinfo[k]["ip"], sinfo[k]["port"], addr, results)
 
 
-def parse_redis_topology(master):
+def parse_valkey_topology(master):
     host = master[0]
     port = master[1]
 
@@ -84,4 +84,4 @@ def parse_redis_topology(master):
         
 
 if __name__ == "__main__":
-    print(parse_redis_topology(get_top_master(HOST, PORT)))
+    print(parse_valkey_topology(get_top_master(HOST, PORT)))

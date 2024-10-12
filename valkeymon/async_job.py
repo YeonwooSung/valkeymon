@@ -15,7 +15,7 @@ class AsyncJob:
     def get(self):
         try:
             v = self.queue.get(False)
-        except:
+        except Exception:
             v = None
 
         return v

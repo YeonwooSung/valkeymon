@@ -1,4 +1,4 @@
-import json
+# import json
 
 
 PTIME = "ptime"
@@ -42,7 +42,7 @@ def explain_clients_stat(stat, value, value_limit):
     return base_stat_check(stat, value, value_limit, "connected_clients value is changed a lot")
 
 
-def explain_redis_version(stat, value, value_limit):
+def explain_valkey_version(stat, value, value_limit):
     if value[0] < '6':
         description = "Recommand Redis 6.x for failover, Redis 6.x support PSYNC2 better"
         return {'name': stat, 'type': 'info', 'value': value, 'data_type': 'value', 'description': description}
@@ -50,7 +50,7 @@ def explain_redis_version(stat, value, value_limit):
 
 EXPLAIN_STATS_MAP = {
     "connected_clients":    (explain_clients_stat, STAT, 100),
-    "redis_version":     (explain_redis_version, INFO, 0)
+    "valkey_version":     (explain_valkey_version, INFO, 0)
 }
 
 EXPLAIN_CMDS_MAP = {
