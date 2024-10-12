@@ -13,7 +13,7 @@ class Monitor():
     def __del__(self):
         try:
             self.reset()
-        except:
+        except Exception:
             pass
 
     def reset(self):
@@ -35,16 +35,16 @@ class Monitor():
         while self.run:
             try:
                 yield self.parse(self.parse_response())
-            except:
+            except Exception:
                 self.run = False
 
     def parse(self, response):
         value = response.decode('utf-8')
         parts = value.split()
         if len(parts) > 4:
-            db = parts[1][1:]
-            host = parts[2][:-1]
-            cmd = parts[3]
+            # db = parts[1][1:]
+            # host = parts[2][:-1]
+            # cmd = parts[3]
             key = parts[4]
 
             self.key_counter[key] += 1
@@ -58,7 +58,7 @@ if  __name__ == '__main__':
     N = 100
     try:
         N = int(sys.argv[3])
-    except:
+    except Exception:
         N = 100
 
     pool = redis.ConnectionPool(host=host, port=port, db=0)
@@ -66,10 +66,10 @@ if  __name__ == '__main__':
     commands = monitor.monitor()
 
     for c in commands :
-        if monitor.run == False:
+        if not monitor.run:
             print("")
             break
 
-    print("Redis Key Monitor Most Common 100")
+    print("Valkey Key Monitor Most Common 100")
     for k, v in monitor.key_counter.most_common(N):
         print(k, v)

@@ -1,6 +1,7 @@
 import redis
 import sys
 
+
 REDIS_HOST = sys.argv[1]
 REDIS_PORT = sys.argv[2]
 
@@ -20,8 +21,8 @@ def get_set_key_size(conn, key):
 
 def dump(conn, key):
     data = conn.dump(key)
-    l = len(data) if data else 0
-    return l
+    return len(data) if data else 0
+
 
 rconn = redis.StrictRedis(REDIS_HOST, REDIS_PORT)
 
@@ -39,4 +40,3 @@ for elem in sorted(store.items(), reverse=True) :
     print(elem[0])
     for item in elem[1]:
         print(" ====> ", item)
-

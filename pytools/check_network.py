@@ -1,4 +1,3 @@
-import collections
 import redis
 import sys
 import time

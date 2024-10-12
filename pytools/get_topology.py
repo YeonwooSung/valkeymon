@@ -1,6 +1,6 @@
 import redis
 import sys
-import json
+
 
 HOST=sys.argv[1]
 PORT=sys.argv[2]
@@ -48,6 +48,7 @@ def get_top_master(host, port):
     minfo = parse_master_info(info)
     return get_top_master(minfo["host"], minfo["port"])
 
+
 def parse_slave_node(host, port, parent, results):
     conn = redis.StrictRedis(host, port)
 
@@ -60,6 +61,7 @@ def parse_slave_node(host, port, parent, results):
     results[addr] = host_info
     for k in sinfo.keys():
         parse_slave_node(sinfo[k]["ip"], sinfo[k]["port"], addr, results)
+
 
 def parse_redis_topology(master):
     host = master[0]
